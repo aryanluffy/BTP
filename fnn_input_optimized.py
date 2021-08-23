@@ -89,6 +89,7 @@ for epoch in range(num_epochs):
 # In test phase, we don't need to compute gradients (for memory efficiency)
 for x in model.parameters():
     print(x)
+counter=0
 with torch.no_grad():
     correct = 0
     total = 0
@@ -98,7 +99,12 @@ with torch.no_grad():
         outputs = model(images)
         _, predicted = torch.max(outputs.data, 1)
         total += labels.size(0)
+        # print(predicted)
+        # print(outputs)
         correct += (predicted == labels).sum().item()
+        counter+=1
+        # if counter==10:
+        #     break
 
     print('Accuracy of the network on the 6000 test images: {} %'.format(100 * correct / total))
 
