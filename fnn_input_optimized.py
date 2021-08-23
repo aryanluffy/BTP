@@ -9,26 +9,27 @@ import torchvision.transforms as transforms
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # Hyper-parameters 
-input_size = 10
-hidden_size = 50
+input_size = 32
+hidden_size = 4
 num_classes = 2
-num_epochs = 80
+num_epochs = 20
 batch_size = 100
 learning_rate = 0.001
+numberOfBatches=10000
 
 train_data=[]
 test_data=[]
 
-for x in range(0,600):
+for x in range(0,numberOfBatches):
     from random import randint
     images=[]
     labels=[]
     for i in range(0,100):
         temp=[]
-        for j in range(0,10):
-            temp.append(float(randint(0,9)))
+        for j in range(0,input_size):
+            temp.append(float(randint(0,2)))
         images.append(temp)
-        labels.append(int(temp[9])%2)
+        labels.append(int(temp[31])%2)
     train_data.append((torch.tensor(images),torch.tensor(labels)))
 
 for x in range(0,600):
@@ -37,10 +38,10 @@ for x in range(0,600):
     labels=[]
     for i in range(0,100):
         temp=[]
-        for j in range(0,10):
-            temp.append(float(randint(0,9)))
+        for j in range(0,input_size):
+            temp.append(float(randint(0,2)))
         images.append(temp)
-        labels.append(int(temp[9])%2)
+        labels.append(int(temp[31])%2)
     test_data.append((torch.tensor(images),torch.tensor(labels)))
 
 # Fully connected neural network with one hidden layer
