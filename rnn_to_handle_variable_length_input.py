@@ -11,13 +11,13 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 # Hyper-parameters 
 maxSeqLen = 256
 input_size= 1
-hidden_size = 4
+hidden_size = 16
 num_classes = 2
-num_epochs = 1
+num_epochs = 6
 num_layers=1
 batch_size = 100
 learning_rate = 0.001
-numberOfBatches=10000
+numberOfBatches=1000
 
 train_data=[]
 test_data=[]
@@ -32,7 +32,7 @@ for x in range(0,numberOfBatches):
         for j in range(0,seqLength):
             temp.append([float(randint(0,1))])
         images.append(temp)
-        labels.append(int(temp[-1][0]))
+        labels.append(int(temp[0][0]))
     train_data.append((torch.tensor(images),torch.tensor(labels)))
 
 for x in range(0,int(numberOfBatches/10)):
@@ -44,7 +44,7 @@ for x in range(0,int(numberOfBatches/10)):
         for j in range(0,seqLength):
             temp.append([float(randint(0,1))])
         images.append(temp)
-        labels.append(int(temp[-1][0]))
+        labels.append(int(temp[0][0]))
     test_data.append((torch.tensor(images),torch.tensor(labels)))
 
 # Recurrent neural network (many-to-one)
@@ -118,5 +118,4 @@ with torch.no_grad():
         #     break
 
     print('Accuracy of the network on the 6000 test images: {} %'.format(100 * correct / total))
-
 
